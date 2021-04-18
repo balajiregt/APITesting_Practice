@@ -1,0 +1,50 @@
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Users\balajik>newman run https://www.getpostman.com/collections/b8706cc6d7964
+8469295 --reporters=cli,htmlextra
+newman
+
+Practice_reqres.in
+Using htmlextra version 1.20.1
+
+→ https://reqres.in/api/register
+  POST https://reqres.in/api/register [200 OK, 1.01KB, 1176ms]
+  √  To verify that registration is succesfull
+  √  status code is 200
+
+→ https://reqres.in/api/users-get
+  GET https://reqres.in/api/users/4 [200 OK, 1.17KB, 232ms]
+  √  To verify the registered userid is returned here
+  √  status code is 200
+
+→ https://reqres.in/api/users-post
+  POST https://reqres.in/api/users [201 Created, 929B, 670ms]
+  √  To verify the new user creation post request is successful and fields- name
+, job, id, createdat, were returned
+  √  status code is 201
+
+→ https://reqres.in/api/login
+  POST https://reqres.in/api/login [200 OK, 861B, 664ms]
+  √  To verify that login is succesfull
+  √  status code is 200
+
+┌─────────────────────────┬─────────────────────┬─────────────────────┐
+│                         │            executed │              failed │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│              iterations │                   1 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│                requests │                   4 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│            test-scripts │                   4 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│      prerequest-scripts │                   0 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│              assertions │                   8 │                   0 │
+├─────────────────────────┴─────────────────────┴─────────────────────┤
+│ total run duration: 3.1s                                            │
+├─────────────────────────────────────────────────────────────────────┤
+│ total data received: 421B (approx)                                  │
+├─────────────────────────────────────────────────────────────────────┤
+│ average response time: 685ms [min: 232ms, max: 1176ms, s.d.: 334ms] │
+└─────────────────────────────────────────────────────────────────────┘
