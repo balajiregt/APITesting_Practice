@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "1d0795f5-33f7-47a3-97bb-7e94d1132ac9",
+		"name": "Practice_reqres.in",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://reqres.in/api/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"access_token\");//to assert the response code of api\r",
+							"tests[\"status code is 200\"]=responseCode.code==200;\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set('userId',jsonData.id)\r",
+							"\r",
+							"//postman.setNextRequest('https://reqres.in/api/login');\r",
+							"\r",
+							"pm.test(\"To verify that registration is succesfull\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.equal(4);\r",
+							"    pm.expect(jsonData.token).to.not.null})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"pistol\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/register",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://reqres.in/api/users-get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"access_token\");//to assert the response code of api\r",
+							"tests[\"status code is 200\"]=responseCode.code==200;\r",
+							"\r",
+							"pm.test(\"To verify the registered userid is returned here\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.equal(4)})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://reqres.in/api/users-post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"access_token\");//to assert the response code of api\r",
+							"tests[\"status code is 201\"]=responseCode.code==201;\r",
+							"\r",
+							"//postman.setNextRequest(null);\r",
+							"\r",
+							"pm.test(\"To verify the post request is successful and fields- name, job, id, createdat, were available\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.not.null;\r",
+							"    pm.expect(jsonData.job).to.not.null;\r",
+							"    pm.expect(jsonData.id).to.not.null\r",
+							"    pm.expect(jsonData.createdAt).to.not.null\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "reqres.in"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"89\", \"Chromium\";v=\"89\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "upgrade-insecure-requests",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+					},
+					{
+						"key": "accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "navigate"
+					},
+					{
+						"key": "sec-fetch-user",
+						"value": "?1"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "document"
+					},
+					{
+						"key": "referer",
+						"value": "https://reqres.in/?page=2"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "__cfduid=d945bf6974d53a364d2e8a9096a07f0351618141308; _ga=GA1.2.138369075.1618141386; _gid=GA1.2.1176205063.1618141386; __stripe_mid=dcf91922-cbc5-472e-9eac-ac36cf04ca7d344757"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\": \"morpheas\",\r\n \"job\": \"Leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://reqres.in/api/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"access_token\");//to assert the response code of api\r",
+							"tests[\"status code is 200\"]=responseCode.code==200;\r",
+							"\r",
+							"//postman.setNextRequest('https://reqres.in/api/users-post');\r",
+							"\r",
+							"pm.test(\"To verify that login is succesfull\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.token).to.not.null})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"cityslicka\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/login",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
