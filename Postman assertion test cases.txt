@@ -1,0 +1,67 @@
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response time is less than 8000ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(8000);
+});
+
+pm.test("Contains response for: CalendarData, Kronos_WFC, Kronos_WFD, EmployeeInfo, HRAppData, PTOBal, HSABal", function () {
+    pm.expect(pm.response.text()).to.include("CalendarData");
+    pm.expect(pm.response.text()).to.include("Kronos_WFD");
+    pm.expect(pm.response.text()).to.include("Kronos_WFC");
+    pm.expect(pm.response.text()).to.include("EmployeeInfo");
+    pm.expect(pm.response.text()).to.include("HRAppData");
+    pm.expect(pm.response.text()).to.include("PTOBal");
+    pm.expect(pm.response.text()).to.include("HSABal");
+});
+
+//mapping the "Kronos_WFD" object: "balances"-"Type" values and printing in the test result
+var responseJson = JSON.parse(responseBody);
+var kronosvalues= _.map(responseJson.Kronos_WFD.balances, 'Htype')
+console.log(kronosvalues)
+pm.test(kronosvalues, function(){
+
+})
+--------------------------------------------
+
+//validate the string lenth
+pm.test("Description string length should be equal or less than 500 characters", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.description.length).to.be.at.most(500);
+    
+});
+
+//validate the extended hours text is NOT present
+pm.test("Assert NOT TO HAVE the extended timing strings '8:00 pm & Saturday'", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.description).not.to.have.string("8:00 pm","Saturday");
+});
+
+//validate the normal hours status value to OPEN
+pm.test("Assert NOT TO HAVE status as null", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.status).not.to.have.string("null");
+})
+
+//validate the extended hours text is present
+pm.test("Assert TO HAVE the extended timing strings '8:00 pm & Saturday'", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.description).to.have.string("8:00 pm","Saturday");
+});
+
+//to verify response body is not empty
+let parsedResponseBody = JSON.parse (responseBody); 
+tests['JSON array is not empty'] = (parsedResponseBody.length > 0);
+
+
+pm.test("Check state id", function () {
+    var jsonData = pm.response.json();
+    console.log(jsonData)
+    pm.expect(pm.response.text()).to.include(181);
+    
+});
+
+pm.test("No Favorites Availalbe, array is empty as expected", function () {
+    pm.expect(pm.response.text()).to.include("[]");
+});
